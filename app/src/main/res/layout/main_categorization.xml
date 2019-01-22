@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/blue"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/yellow"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/cion"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/red"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/green"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/blue"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/yellow"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/cion"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/red"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/green"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/blue"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/yellow"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/cion"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/red"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/green"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/blue"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/yellow"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/cion"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/red"
+            tools:ignore="MissingPrefix" />
+
+        <TextView
+            style="@style/text_view_cat"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/text_view_cat"
+            android:text="دسته بندی 1"
+            app:backgroundTint="@color/green"
+            tools:ignore="MissingPrefix" />
+
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -1,0 +1,91 @@
+<resources>
+    <string name="app_name">وکیل من</string>
+    <string name="welcome">به وکیل من خوش آمدید</string>
+    <string name="login">ورود</string>
+    <string name="register">عضویت</string>
+    <string name="enterMobile">برای ثبت نام شماره موبایل خود را وارد کنید</string>
+    <string name="enterVerifyCode">کد دریافت شده از طریق پیامک را وارد کنید</string>
+    <string name="starFields">پر کردن فیلدهای ستاره دار الزامی است</string>
+    <string name="name">نام*</string>
+    <string name="family">نام خانوادگی*</string>
+    <string name="email">ایمیل*</string>
+    <string name="address">آدرس</string>
+    <string name="gender">جنسیت*</string>
+    <string name="state">استان*</string>
+    <string name="city">شهر*</string>
+    <string name="profile_image_upload">آپلود عکس پروفایل</string>
+    <string name="saveInfo">ثبت اطلاعات</string>
+    <string name="logo">LOGO</string>
+    <string name="continuation">ادامه</string>
+    <string name="mobileExample">*********09</string>
+    <string name="male">مرد</string>
+    <string name="female">زن</string>
+    <string name="wallet">کیف پول</string>
+    <string name="turnover">گردش حساب</string>
+    <string name="history">تاریخچه درخواست ها</string>
+    <string name="favoriteLawyer">وکیل های منتخب</string>
+    <string name="inBux">پیام ها</string>
+    <string name="support">پشتیبانی</string>
+    <string name="setting">تنظیمات</string>
+    <string name="about">درباره وکیل من</string>
+    <string name="exitAccount">خروج از حساب کاربری</string>
+    <string name="userInfo">اطلاعات کاربر</string>
+    <string name="yourProblem">مشکل شما چیست؟</string>
+    <string name="problemConsultant">مشکلی با مشاور دارم</string>
+    <string name="problemMoney">مشکلی با هزینه ها دارم</string>
+    <string name="problemApp">مشکلی با اپلیکیشن دارم</string>
+    <string name="problemNotFound">مشکل شما در لیست بالا نبود؟</string>
+    <string name="callWithSupport">تماس با پشتیبانی وکیل من</string>
+    <string name="sendTick">ارسال تیکت</string>
+    <string name="bargaining">چانه زنی</string>
+    <string name="badConsultant">مشاوره نامناسب</string>
+    <string name="immorality">بدصحبتی و بداخلاقی</string>
+    <string name="disrespect">عدم احترام</string>
+    <string name="other">موارد دیگر</string>
+    <string name="otherWise">سایر موارد</string>
+    <string name="moneyDeductionMore">از اعتبار من هزینه بیشتری کم شده است</string>
+    <string name="noMoneyIncrease">بعد از پرداخت آنلاین میزان اعتبار حساب من افزایش پیدا نکرده است</string>
+    <string name="discountCodeDisable">کد تخفیف های وارد شده اعمال نمیشود</string>
+    <string name="dontSendConsultantRequest">درخواست مشاوره ارسال نمیکند</string>
+    <string name="problemWithFactor">با نمایش رسید مشکل دارم</string>
+    <string name="appCrash">اپلیکیشن خود به خود بسته میشود</string>
+    <string name="problemDetails">مشکل خود را شرح دهید (حداکثر 800 حرف)</string>
+    <string name="send">ارسال</string>
+    <string name="subject">موضوع</string>
+    <string name="explain">توضیحات</string>
+    <string name="tryAgain">دوباره امتحان کنید</string>
+    <string name="checkInternet">لطفا اتصال اینترنت خود را چک کنید</string>
+    <string name="explainBargaining">اگر مشاور حین مشاوره درخواست پول بیشتری کرده است لطفا نام مشاور و میزان مبلغ درخواستی را وارد کنید</string>
+    <string name="explainBadConsultant">اگر از نحوه مشاوره ناراضی بودید نام مشاور و دلیل نارضایتی خود را وارد کنید</string>
+    <string name="explainImmorality">اگر مشاور حین مشاوره از کلمات و عبارات نامناسب استفاده کرد نام مشاور و عبارات نامناسب را وارد کنید</string>
+    <string name="explainDisrespect">اگر مشاور حین مشاوره به شما بی احترامی کرده است نام مشاور و نحوه برخورد را وارد کنید</string>
+    <string name="explainOtherConsultant">لطفا نام مشاور را همراه با توضیحات وارد کنید</string>
+    <string name="explainOther">لطفا مشکل خود را شرح دهید</string>
+    <string name="explainMoneyDeductionMore">تاریخ کم شدن هزینه و مبلغ اضافی که کسر شده را وارد کنید</string>
+    <string name="explainNoMoneyIncrease">تاریخ پرداخت آنلاین و کد رهگیری بانک و میزان مبلغ را وارد کنید</string>
+    <string name="explainDiscountCodeDisable">کد تخفیف و تاریخ استفاده خود را وارد کنید</string>
+    <string name="explainDontSendConsultantRequest">اگر قادر به ارسال درخواست نمیباشید لطفا مختصری از مشکل خود را شرح دهید</string>
+    <string name="explainAppCrash">نام قسمتی که اپلیکیشن خود به خود بسته میشود را بنویسید</string>
+    <string name="explainProblemWithFactor">اگر رسید برای شما به درستی نمایش داده نمیشود لطفا شرح مختصری از مشکل خود را بنویسید</string>
+    <string name="aboutTextOne">با استفاده از سامانه هوشمند وکیل من میتوانید در هر ساعت از شبانه روز آسان تر و با امنیت بیشتر و قیمت مناسب از خدمات مشاوره یا درخواست وکیل استفاده کنید</string>
+    <string name="aboutTextTwo">با اپلیکیشن وکیل من دیگه نیازی نیست کلی وقت و انرژی هدر بدی و ندونی باید چیکار کنی که به حقت برسی</string>
+    <string name="aboutTextThree">برای استفاده از وکیل من نوع درخواست خودت رو مشخص کن و بعد از آن هر وکیل یا مشاوری که خواستی انتخاب کن و به راحتی نیاز خودت رو برطرف کن</string>
+    <string name="aboutTextFour">امکان مشاوره حضوری و گرفتن وکیل برای شهر اصفهان و نجف آبادو حومه فعال است</string>
+
+    <string-array name="states">
+        <item>انتخاب کنید</item>
+        <item>اصفهان</item>
+    </string-array>
+
+    <string-array name="cities">
+        <item>انتخاب کنید</item>
+        <item>نجف اباد</item>
+        <item>شاهین شهر</item>
+        <item>فولادشهر</item>
+        <item>گلدشت</item>
+        <item>تیران</item>
+    </string-array>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

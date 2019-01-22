@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/backColor"
+    android:layout_marginTop="100dp"
+    android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo_si"
+        android:layout_marginTop="20dp"
+        android:contentDescription="@string/logo"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enterMobile"
+        android:textAlignment="center"
+        android:textSize="17sp"
+        android:textColor="#000"
+        android:layout_marginTop="40dp"/>
+
+    <EditText
+        android:id="@+id/mobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/edit_text_shape"
+        android:inputType="number"
+        android:layout_marginTop="40dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:hint="@string/mobileExample"
+        android:textColorHint="#bbb"
+        android:textAlignment="center"/>
+
+    <Button
+        android:id="@+id/btn_submit_mobile"
+        style="@style/Buttons"
+        android:text="@string/continuation"/>
+
+</LinearLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layoutDirection="rtl"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:background="@color/backColor">
+
+    <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/start_view_flipper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <include layout="@layout/chose_login_register" />
+
+        <include layout="@layout/mobile_registering"/>
+
+        <include layout="@layout/enter_verify_code"/>
+
+        <include layout="@layout/user_info_form"/>
+
+        <include layout="@layout/drawer_layout"/>
+
+        <include layout="@layout/no_internet_connection"/>
+
+    </ViewFlipper>
+
+</LinearLayout>
