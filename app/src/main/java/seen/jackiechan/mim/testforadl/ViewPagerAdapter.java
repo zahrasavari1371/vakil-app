@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 public class ViewPagerAdapter extends PagerAdapter {
-    ArrayList<ViewPagerModel> values;
+    private ArrayList<ViewPagerModel> values;
 
     public ViewPagerAdapter(ArrayList<ViewPagerModel> values) {
         this.values = values;
@@ -29,6 +29,12 @@ public class ViewPagerAdapter extends PagerAdapter {
 
         TextView aboutText = view.findViewById(R.id.aboutText);
         aboutText.setText(values.get(position).getText());
+
+        TextView aboutCity = view.findViewById(R.id.aboutCity);
+        aboutCity.setText(values.get(position).getCity());
+
+        TextView laws = view.findViewById(R.id.laws);
+        laws.setText(values.get(position).getLaws());
 
         ImageView aboutLogo = view.findViewById(R.id.aboutLogo);
         aboutLogo.setImageResource(values.get(position).getImage());

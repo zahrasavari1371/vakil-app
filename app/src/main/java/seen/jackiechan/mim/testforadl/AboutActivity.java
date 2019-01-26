@@ -25,10 +25,10 @@ public class AboutActivity extends AppCompatActivity {
         InkPageIndicator inkPageIndicator = findViewById(R.id.indicator);
 
         ArrayList<ViewPagerModel> values = new ArrayList<>();
-        values.add(new ViewPagerModel("سرعت و امنیت", getResources().getString(R.string.aboutTextOne), R.drawable.logo_si));
-        values.add(new ViewPagerModel("صرفه جویی در وقت و هزینه", getResources().getString(R.string.aboutTextTwo), R.drawable.logo_si));
-        values.add(new ViewPagerModel("عملکرد آسان", getResources().getString(R.string.aboutTextThree), R.drawable.logo_si));
-        values.add(new ViewPagerModel("برای همه مردم ایران", getResources().getString(R.string.aboutTextFour), R.drawable.logo_si));
+        values.add(new ViewPagerModel("سرعت و امنیت", getResources().getString(R.string.aboutTextOne), R.drawable.ic_lock_brown_80dp,"",""));
+        values.add(new ViewPagerModel("صرفه جویی در وقت و هزینه", getResources().getString(R.string.aboutTextTwo), R.drawable.ic_access_time_brown_100dp,"",""));
+        values.add(new ViewPagerModel("عملکرد آسان", getResources().getString(R.string.aboutTextThree), R.drawable.logo_si,"",""));
+        values.add(new ViewPagerModel("برای همه مردم ایران", getResources().getString(R.string.aboutTextFour), R.drawable.ic_wc_brown_100dp,"قوانین من","مقصد بعدی ما شهر شماست"));
 
         ViewPagerAdapter adapter = new ViewPagerAdapter(values);
         viewPager.setAdapter(adapter);

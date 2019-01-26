@@ -26,9 +26,9 @@ public class Controller extends MultiDexApplication {
         try
         {
             FontsOverride.setDefaultFont(this, "DEFAULT", "fonts/iransans_bold.ttf");
-            FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/iransans_bold.ttf");
+            FontsOverride.setDefaultFont(this, "MONOSPACE", "fonts/iransans_light.ttf");
             FontsOverride.setDefaultFont(this, "SERIF", "fonts/iransans_bold.ttf");
-            FontsOverride.setDefaultFont(this, "SANS_SERIF", "fonts/iransans_bold.ttf");
+            FontsOverride.setDefaultFont(this, "SANS_SERIF", "fonts/iransans_medium.ttf");
         }
         catch (Exception err)
         {

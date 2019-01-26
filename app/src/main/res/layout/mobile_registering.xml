@@ -25,15 +25,12 @@
 
     <EditText
         android:id="@+id/mobile"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@drawable/edit_text_shape"
+        style="@style/EditTexts"
         android:inputType="number"
         android:layout_marginTop="40dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:hint="@string/mobileExample"
-        android:textColorHint="#bbb"
         android:textAlignment="center"/>
 
     <Button

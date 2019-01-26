@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -59,6 +60,8 @@ public class SupportActivity extends AppCompatActivity {
         final TextView bargaining = findViewById(R.id.bargaining);
         final TextView explain_title = findViewById(R.id.explain_title);
 
+        final EditText explain_text=findViewById(R.id.explain_text);
+
 
         View.OnClickListener problemDetails = new View.OnClickListener() {
             @Override
@@ -72,91 +75,91 @@ public class SupportActivity extends AppCompatActivity {
                 app_layer.setVisibility(View.GONE);
                 other_problem_layer.setVisibility(View.GONE);
                 explain_layer.setVisibility(View.VISIBLE);
-
+                explain_text.getText().clear();
 
                 switch (view.getId()) {
 
                     case R.id.dontSendConsultantRequest:
                         title = dontSendConsultantRequest.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainDontSendConsultantRequest);
+                        explain = getResources().getString(R.string.explainDontSendConsultantRequest);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.problemWithFactor:
                         title = problemWithFactor.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainProblemWithFactor);
+                        explain = getResources().getString(R.string.explainProblemWithFactor);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.appCrash:
                         title = appCrash.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainAppCrash);
+                        explain = getResources().getString(R.string.explainAppCrash);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.other:
                         title = other.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainOther);
+                        explain = getResources().getString(R.string.explainOther);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.discountCodeDisable:
                         title = discountCodeDisable.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainDiscountCodeDisable);
+                        explain = getResources().getString(R.string.explainDiscountCodeDisable);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.noMoneyIncrease:
                         title = noMoneyIncrease.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainNoMoneyIncrease);
+                        explain = getResources().getString(R.string.explainNoMoneyIncrease);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.moneyDeductionMore:
                         title = moneyDeductionMore.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainMoneyDeductionMore);
+                        explain = getResources().getString(R.string.explainMoneyDeductionMore);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.other_consultant:
                         title = other_consultant.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainOtherConsultant);
+                        explain = getResources().getString(R.string.explainOtherConsultant);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.disrespect:
                         title = disrespect.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainDisrespect);
+                        explain = getResources().getString(R.string.explainDisrespect);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.immorality:
                         title = immorality.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainImmorality);
+                        explain = getResources().getString(R.string.explainImmorality);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.badConsultant:
                         title = badConsultant.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainBadConsultant);
+                        explain = getResources().getString(R.string.explainBadConsultant);
                         explain_title.setText(explain);
                         break;
 
                     case R.id.bargaining:
                         title = bargaining.getText().toString();
                         problem_title.setText(title);
-                        explain=getResources().getString(R.string.explainBargaining);
+                        explain = getResources().getString(R.string.explainBargaining);
                         explain_title.setText(explain);
                         break;
 

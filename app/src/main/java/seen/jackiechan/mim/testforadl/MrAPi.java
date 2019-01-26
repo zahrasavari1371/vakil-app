@@ -12,6 +12,8 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,6 +32,11 @@ import cz.msebera.android.httpclient.impl.client.HttpClients;
 import cz.msebera.android.httpclient.message.BasicNameValuePair;
 import cz.msebera.android.httpclient.util.EntityUtils;
 
+
+/**
+ * authored by https://twitter.com/96rajabi
+ * MrAPi v 2.1
+ */
 public class MrAPi extends AsyncTask<Void, Void, Void> {
     public static final String HOST = "http://198.143.183.52/";
     private String response, token, target, method = "get", type = "string";
@@ -40,7 +47,6 @@ public class MrAPi extends AsyncTask<Void, Void, Void> {
     private MrOnTaskExecuteList onTaskExecuteList;
     private MrOnTaskExecuteJsonObject onTaskExecuteJsonObject;
     private MrOnTaskExecuteJsonArray onTaskExecuteJsonArray;
-    private Class object;
     private Exception exception;
     private static final String[] FILTER_COLUMNS = {"$change", "serialVersionUID"};
 
@@ -128,16 +134,14 @@ public class MrAPi extends AsyncTask<Void, Void, Void> {
         this.params = makeNameValuePair(params);
     }
 
-    public void getArrayList(Class object, MrOnTaskExecuteList onTaskExecuteList) {
+    public void getArrayList(MrOnTaskExecuteList onTaskExecuteList) {
         this.type = "list";
-        this.object = object;
         this.onTaskExecuteList = onTaskExecuteList;
         this.execute();
     }
 
-    public void getObject(Class object, MrOnTaskExecuteObject onTaskExecuteObject) {
+    public void getObject(MrOnTaskExecuteObject onTaskExecuteObject) {
         this.type = "object";
-        this.object = object;
         this.onTaskExecuteObject = onTaskExecuteObject;
         this.execute();
     }
@@ -183,19 +187,13 @@ public class MrAPi extends AsyncTask<Void, Void, Void> {
                 case "object":
                     if (status == 200) {
                         Gson gson = new Gson();
-                        this.onTaskExecuteObject.onTaskSuccess(gson.fromJson(response, object));
+                        this.onTaskExecuteObject.onTaskSuccess(gson.fromJson(response, getGenericInterfaceType(this.onTaskExecuteObject.getClass())));
                     } else
                         this.onTaskExecuteObject.onTaskFailure(status, response, exception);
                     break;
                 case "list":
                     if (status == 200) {
-                        List<Object> objects = new ArrayList<Object>();
-                        JSONArray jsonArray = new JSONArray(response);
-                        for (int i = 0; i < jsonArray.length(); i++) {
-                            Gson gson = new Gson();
-                            objects.add(gson.fromJson(String.valueOf(jsonArray.get(i)), object));
-                        }
-                        this.onTaskExecuteList.onTaskSuccess(objects);
+                        this.onTaskExecuteList.onTaskSuccess(makeArrayList(getGenericInterfaceType(this.onTaskExecuteList.getClass()), new JSONArray(response)));
                     } else
                         this.onTaskExecuteList.onTaskFailure(status, response, exception);
                     break;
@@ -222,6 +220,12 @@ public class MrAPi extends AsyncTask<Void, Void, Void> {
             exception = e;
             e.printStackTrace();
         }
+    }
+
+    private Class getGenericInterfaceType(Class clazz) {
+        ParameterizedType parameterizedType = (ParameterizedType) clazz.getGenericInterfaces()[0];
+        Type[] typeArguments = parameterizedType.getActualTypeArguments();
+        return (Class<?>) typeArguments[0];
     }
 
     private List<NameValuePair> makeNameValuePair(HashMap<String, String> input) {
@@ -274,7 +278,7 @@ public class MrAPi extends AsyncTask<Void, Void, Void> {
                     status = res.getStatusLine().getStatusCode();
                     response = EntityUtils.toString(entity, "utf-8");
                     System.out.println("Api response " + String.valueOf(status) + " : " + response);
-                            client.close();
+                    client.close();
                 } catch (Exception e) {
                     System.out.println("Api catch " + e.getMessage());
                     exception = e;
@@ -335,6 +339,19 @@ public class MrAPi extends AsyncTask<Void, Void, Void> {
         }
     }
 
+    private <T> List<T> makeArrayList(Class<T> clazz, JSONArray jsonArray) {
+        List<T> list = new ArrayList<>();
+        for (int i = 0; i < jsonArray.length(); i++) {
+            Gson gson = new Gson();
+            try {
+                list.add(gson.fromJson(String.valueOf(jsonArray.get(i)), clazz));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        return list;
+    }
+
     public interface MrOnTaskExecute {
         void onTaskSuccess(String response);
 
@@ -347,8 +364,8 @@ public class MrAPi extends AsyncTask<Void, Void, Void> {
         void onTaskFailure(Integer status, String response, Exception exception);
     }
 
-    public interface MrOnTaskExecuteList {
-        void onTaskSuccess(List<Object> objects);
+    public interface MrOnTaskExecuteList<T> {
+        void onTaskSuccess(List<T> objects);
 
         void onTaskFailure(Integer status, String response, Exception exception);
     }

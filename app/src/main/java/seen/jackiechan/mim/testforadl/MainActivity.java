@@ -14,6 +14,7 @@ import android.os.Build;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.TextInputEditText;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -28,13 +29,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ViewFlipper;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -52,14 +59,15 @@ public class MainActivity extends AppCompatActivity {
     private DrawerLayout drawerLayout;
     private NavigationView navigationView;
     private View contentView;
-    private LinearLayout header_layout;
     private ViewFlipper start_view_flipper;
     private ProgressDialog progressDialog;
-    private List<NameValuePair> values;
     private EditText num1;
     private EditText num2;
     private EditText num3;
     private EditText num4;
+    private String password;
+    private String phone;
+    private HashMap<String,String> userInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,98 +80,23 @@ public class MainActivity extends AppCompatActivity {
         num3 = findViewById(R.id.num3);
         num4 = findViewById(R.id.num4);
 
+//        First if is for check internet connection
         if (checkInternet()) {
-            start_view_flipper.setDisplayedChild(0);
-            num1.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if (num1.length() == 1) {
-                        num1.clearFocus();
-                        num2.requestFocus();
-                        num2.setCursorVisible(true);
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-
-            num2.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if (num2.length() == 1) {
-                        num2.clearFocus();
-                        num3.requestFocus();
-                        num3.setCursorVisible(true);
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-
-            num3.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                    if (num3.length() == 1) {
-                        num3.clearFocus();
-                        num4.requestFocus();
-                        num4.setCursorVisible(true);
-                    }
-                }
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-
-                }
-            });
-
-            num4.addTextChangedListener(new TextWatcher() {
-                @Override
-                public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                }
-
-                @Override
-                public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-//                        progressDialog = new ProgressDialog(MainActivity.this);
-//                        progressDialog.setMessage(""); // Setting Message
-//                        progressDialog.setTitle("لطفا صبر کنید..."); // Setting Title
-//                        progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
-//                        progressDialog.show(); // Display Progress Dialog
-//                        progressDialog.setCancelable(false);
-                }
-
-
-                @Override
-                public void afterTextChanged(Editable editable) {
-                    if (num4.length() == 1) {
-                        login();
-                    }
-                }
-            });
-            navMenuAnim();
-            Listeners();
+//            check that user is exist in app or not. If yes goes to main page, If no goes to register page
+            MrSQl check = new MrSQl(getApplicationContext());
+            if (check.exists(Config.class, "name", "token")) {
+                start_view_flipper.setDisplayedChild(4);
+                navMenuAnim();
+//                Here if user did not in app should register first by his/her mobile
+            } else {
+                Log.e("This is token ", check.get(Config.class,"name","token").getValue());
+                start_view_flipper.setDisplayedChild(0);
+//                saveUserInformation();
+                generatePassword();
+                navMenuAnim();
+                Listeners();
+            }
+//            this else work when internet connection is off
         } else {
             start_view_flipper.setDisplayedChild(5);
             Dialog dialog = new Dialog(MainActivity.this);
@@ -175,12 +108,153 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    public void saveUserInformation() {
+
+        TextInputEditText name = findViewById(R.id.name);
+        TextInputEditText family = findViewById(R.id.family);
+        TextInputEditText email = findViewById(R.id.email);
+        TextInputEditText address = findViewById(R.id.address);
+        Spinner state = findViewById(R.id.state);
+        Spinner city = findViewById(R.id.city);
+        RadioButton male = findViewById(R.id.male);
+        RadioButton female = findViewById(R.id.female);
+
+        String State = state.getSelectedItem().toString();
+        String City = city.getSelectedItem().toString();
+
+        userInfo=new HashMap<>();
+        userInfo.put("name", Objects.requireNonNull(name.getText()).toString());
+        userInfo.put("family", Objects.requireNonNull(family.getText()).toString());
+        userInfo.put("email", Objects.requireNonNull(email.getText()).toString());
+        userInfo.put("address", Objects.requireNonNull(address.getText()).toString());
+        userInfo.put("state", Objects.requireNonNull(State));
+        userInfo.put("city", Objects.requireNonNull(City));
+        if (male.isChecked()){
+            userInfo.put("gender","male");
+        }
+        if (female.isChecked()){
+            userInfo.put("gender","female");
+        }
+
+        Log.e("User Information ",userInfo.toString());
+
+//        userInfo = new ArrayList<>();
+//        userInfo.add(new BasicNameValuePair("name", Objects.requireNonNull(name.getText()).toString()));
+//        userInfo.add(new BasicNameValuePair("family", Objects.requireNonNull(family.getText()).toString()));
+//        userInfo.add(new BasicNameValuePair("email", Objects.requireNonNull(email.getText()).toString()));
+//        userInfo.add(new BasicNameValuePair("address", Objects.requireNonNull(address.getText()).toString()));
+//        userInfo.add(new BasicNameValuePair("state", Objects.requireNonNull(State)));
+//        userInfo.add(new BasicNameValuePair("city", Objects.requireNonNull(City)));
+//        if (male.isChecked()) {
+//            userInfo.add(new BasicNameValuePair("gender", "male"));
+//        }
+//        if (female.isChecked()) {
+//            userInfo.add(new BasicNameValuePair("gender", "female"));
+//        }
+    }
+
+    //    This method is for generating verity sms
+    public void generatePassword() {
+        num1.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (num1.length() == 1) {
+                    password = num1.getText().toString();
+                    num1.clearFocus();
+                    num2.requestFocus();
+                    num2.setCursorVisible(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        num2.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (num2.length() == 1) {
+                    password = password + num2.getText().toString();
+                    num2.clearFocus();
+                    num3.requestFocus();
+                    num3.setCursorVisible(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        num3.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (num3.length() == 1) {
+                    password = password + num3.getText().toString();
+                    num3.clearFocus();
+                    num4.requestFocus();
+                    num4.setCursorVisible(true);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+
+        num4.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (num4.length() == 1) {
+                    password = password + num4.getText().toString();
+                    login();
+                    progressDialog = new ProgressDialog(MainActivity.this);
+                    progressDialog.setMessage(""); // Setting Message
+                    progressDialog.setTitle("لطفا صبر کنید..."); // Setting Title
+                    progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+                    progressDialog.show(); // Display Progress Dialog
+                    progressDialog.setCancelable(false);
+                }
+            }
+        });
+    }
+
+    //    This method is for navigation drawer animation and its listeners
     public void navMenuAnim() {
         drawerLayout = findViewById(R.id.drawerLayout);
         navigationView = findViewById(R.id.navigation_view);
         Toolbar toolbar = findViewById(R.id.toolbar);
         contentView = findViewById(R.id.contentView);
-        header_layout = findViewById(R.id.header_layout);
 
         setSupportActionBar(toolbar);
 
@@ -269,15 +343,8 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    //    These are for Register listeners
     public void Listeners() {
-        if (drawerLayout.isDrawerOpen(navigationView)) {
-            drawerLayout.setOnScrollChangeListener(new View.OnScrollChangeListener() {
-                @Override
-                public void onScrollChange(View view, int i, int i1, int i2, int i3) {
-                    header_layout.setBackgroundColor(getResources().getColor(R.color.blue));
-                }
-            });
-        }
 
         final Button btn_register = findViewById(R.id.btn_register);
         btn_register.setOnClickListener(new View.OnClickListener() {
@@ -292,14 +359,20 @@ public class MainActivity extends AppCompatActivity {
         btn_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                MrSQl checkLogin = new MrSQl(getApplicationContext());
+                if (checkLogin.exists(Config.class, "value", "token")) {
+
+                }
                 start_view_flipper.setDisplayedChild(1);
             }
         });
 
+        final EditText mobile = findViewById(R.id.mobile);
         Button btn_submit_mobile = findViewById(R.id.btn_submit_mobile);
         btn_submit_mobile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                phone = mobile.getText().toString();
                 getVerifyCode();
                 progressDialog = new ProgressDialog(MainActivity.this);
                 progressDialog.setMessage(""); // Setting Message
@@ -322,17 +395,105 @@ public class MainActivity extends AppCompatActivity {
         save_user_info.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                start_view_flipper.setDisplayedChild(4);
+                sendUserInfo();
+                progressDialog = new ProgressDialog(MainActivity.this);
+                progressDialog.setMessage(""); // Setting Message
+                progressDialog.setTitle("لطفا صبر کنید..."); // Setting Title
+                progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER); // Progress Dialog Style Spinner
+                progressDialog.show(); // Display Progress Dialog
+                progressDialog.setCancelable(false);
             }
         });
     }
 
+    //    This method is for chose an image for user profile
     public void select_photo() {
         Intent intent = new Intent();
         intent.setType("image/*");
         intent.setAction(Intent.ACTION_PICK);
 //        int PICK_IMAGE_REQUEST=1;
         startActivityForResult(Intent.createChooser(intent, "Select Picture"), 1);
+    }
+
+    //    This method return internet connection status
+    public boolean checkInternet() {
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        connected = Objects.requireNonNull(connectivityManager).getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
+                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED;
+        return connected;
+    }
+
+    //    Request to server for getting verify SMS
+    public void getVerifyCode() {
+        EditText mobile = findViewById(R.id.mobile);
+        HashMap<String, String> value = new HashMap<>();
+        value.put("phone", mobile.getText().toString());
+        MrAPi register = new MrAPi("api/user/register", "post", value, getApplicationContext());
+        register.getJsonObject(new MrAPi.MrOnTaskExecuteJsonObject() {
+            @Override
+            public void onTaskSuccess(JSONObject jsonObject) throws JSONException {
+                progressDialog.dismiss();
+                Toast.makeText(MainActivity.this, jsonObject.getString("password"), Toast.LENGTH_SHORT).show();
+                start_view_flipper.setDisplayedChild(2);
+                Log.e("Register Successful", jsonObject.toString());
+            }
+
+            @Override
+            public void onTaskFailure(Integer status, String response, Exception exception) {
+                progressDialog.dismiss();
+                Log.e("Register Error ", exception.toString());
+            }
+        });
+    }
+
+    //    Request to server for getting token for authorization
+    public void login() {
+        List<NameValuePair> values = new ArrayList<>();
+        values.add(new BasicNameValuePair("phone", phone));
+        values.add(new BasicNameValuePair("password", password));
+        Log.e("values ", values.toString());
+        final MrSQl sQl = new MrSQl(getApplicationContext());
+        MrAPi login = new MrAPi("api/user/login", "post", values);
+        login.getJsonObject(new MrAPi.MrOnTaskExecuteJsonObject() {
+            @Override
+            public void onTaskSuccess(JSONObject jsonObject) throws JSONException {
+                Config phone = new Config("phone", jsonObject.getString("phone"));
+                Config token = new Config("token", jsonObject.getString("token"));
+                sQl.insert(phone);
+                sQl.insert(token);
+                Log.e("This is token ",sQl.get(Config.class,"name","token").getValue());
+                progressDialog.dismiss();
+                start_view_flipper.setDisplayedChild(3);
+            }
+
+            @Override
+            public void onTaskFailure(Integer status, String response, Exception exception) {
+
+            }
+        });
+    }
+
+    //    This method send User information like first name, last name and etc to server
+    public void sendUserInfo() {
+        saveUserInformation();
+        Log.e("User info ",userInfo.toString());
+        MrAPi sendInfo = new MrAPi("api/user/update", "post", userInfo, getApplicationContext());
+        sendInfo.getJsonObject(new MrAPi.MrOnTaskExecuteJsonObject() {
+            @Override
+            public void onTaskSuccess(JSONObject jsonObject) throws JSONException {
+                progressDialog.dismiss();
+                start_view_flipper.setDisplayedChild(4);
+                Toast.makeText(MainActivity.this, jsonObject.toString(), Toast.LENGTH_SHORT).show();
+                Log.e("User Information are ",jsonObject.toString());
+            }
+
+            @Override
+            public void onTaskFailure(Integer status, String response, Exception exception) {
+                progressDialog.dismiss();
+                Log.e("User Information Error ", exception.toString());
+            }
+        });
     }
 
     @Override
@@ -359,85 +520,17 @@ public class MainActivity extends AppCompatActivity {
             super.onBackPressed();
         }
     }
-
-    public boolean checkInternet() {
-        boolean connected = false;
-        ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
-        if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
-                connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            connected = true;
-        } else {
-            connected = false;
-        }
-        return connected;
-    }
-
-    public void getVerifyCode() {
-        EditText mobile = findViewById(R.id.mobile);
-        HashMap<String, String> value = new HashMap<>();
-        value.put("phone", mobile.getText().toString());
-       MrAPi register = new MrAPi("api/user/register", "post", value, getApplicationContext());
-        register.getString(new MrAPi.MrOnTaskExecute() {
-            @Override
-            public void onTaskSuccess(String response) {
-                Toast.makeText(MainActivity.this, response, Toast.LENGTH_LONG).show();
-                progressDialog.dismiss();
-                start_view_flipper.setDisplayedChild(2);
-                Log.e("Successfull ", response);
-            }
-
-            @Override
-            public void onTaskFailure(Integer status, String response, Exception exception) {
-                Log.e("Register Error : ", exception.toString());
-            }
-        });
-    }
-
-    public void login() {
-        EditText mobile = findViewById(R.id.mobile);
-        values = new ArrayList<>();
-        values.add(new BasicNameValuePair("phone", mobile.getText().toString()));
-        values.add(new BasicNameValuePair("password", String.valueOf(num1.getText()) + num2.getText() + num3.getText() + num4.getText()));
-        final MrSQl sQl = new MrSQl(getApplicationContext());
-        MrAPi login = new MrAPi("api/user/login", "post", values, getApplicationContext());
-
-        login.getArrayList(Config.class, new MrAPi.MrOnTaskExecuteList() {
-            @Override
-            public void onTaskSuccess(List<Object> objects) {
-                Log.e("Login Successful ",objects.toString());
-                Toast.makeText(MainActivity.this, "login was successfully", Toast.LENGTH_SHORT).show();
-//                for (int i = 0; i < objects.size(); i++) {
-//                    Config config = (Config) objects.get(i);
-//                    sQl.insert(config);
-//                }
-//                progressDialog.dismiss();
-                start_view_flipper.setDisplayedChild(3);
-            }
-
-            @Override
-            public void onTaskFailure(Integer status, String response, Exception exception) {
-                Toast.makeText(MainActivity.this, exception.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.e("Login Error ", exception.toString());
-            }
-        });
-
-    }
-
 }
-// final MrSQl mrSQl = new MrSQl(context);
-//            final MrAPi mrAPi = new MrAPi("api/customers", "get", context);
-//            mrAPi.getArrayList(Customer.class, new MrAPi.MrOnTaskExecuteList() {
-//                @Override
-//                public void onTaskSuccess(List<Object> objects) {
-//                    for (int i = 0; i < objects.size(); i++) {
-//                        Customer customer = (Customer) objects.get(i);
-//                        mrSQl.updateOrCreate(customer, "customer_id");
-//                    }
-//                    onSyncComplete.onSyncSuccess(objects.size());
-//                }
+
+//MrAPi mrAPi = new MrAPi("api/application/countries", "get");
+//        mrAPi.getArrayList(new MrAPi.MrOnTaskExecuteList<Country>() {
+//            @Override
+//            public void onTaskSuccess(List<Country> objects) {
+//                mrSQl.updateOrCreate(objects, "iCountryId");
+//            }
 //
-//                @Override
-//                public void onTaskFailure(Integer status, String response, Exception exception) {
-//                    onSyncComplete.onSyncFailure(status, response, exception);
-//                }
-//            });
+//            @Override
+//            public void onTaskFailure(Integer status, String response, Exception exception) {
+//                Toast.makeText(getApplicationContext(), "failed to updated countries information", Toast.LENGTH_LONG).show();
+//            }
+//        });

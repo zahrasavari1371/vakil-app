@@ -6,11 +6,20 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:typeface">monospace</item>
+        <item name="android:typeface">serif</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="EditTexts">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@drawable/edit_text_shape</item>
+        <item name="android:textSize">13sp</item>
+        <item name="android:typeface">monospace</item>
+        <item name="android:textColorHint">#ccc</item>
+        <item name="android:padding">10dp</item>
+    </style>
     <style name="Buttons">
         <item name="android:layout_gravity">center</item>
         <item name="android:layout_marginBottom">15dp</item>

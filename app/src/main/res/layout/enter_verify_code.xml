@@ -42,7 +42,8 @@
             android:inputType="number"
             android:maxLength="1"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:typeface="monospace"/>
 
         <EditText
             android:id="@+id/num2"
@@ -52,7 +53,8 @@
             android:inputType="number"
             android:maxLength="1"
             android:textSize="24sp"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:typeface="monospace"/>
 
         <EditText
             android:id="@+id/num3"
@@ -62,7 +64,8 @@
             android:inputType="number"
             android:maxLength="1"
             android:textSize="24sp"
-            android:textAlignment="center"/>
+            android:textAlignment="center"
+            android:typeface="monospace"/>
 
         <EditText
             android:id="@+id/num4"
@@ -73,7 +76,8 @@
             android:inputType="number"
             android:maxLength="1"
             android:textAlignment="center"
-            android:textSize="24sp" />
+            android:textSize="24sp"
+            android:typeface="monospace"/>
 
     </LinearLayout>
 

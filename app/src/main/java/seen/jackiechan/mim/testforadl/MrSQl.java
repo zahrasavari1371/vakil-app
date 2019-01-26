@@ -16,6 +16,10 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+/**
+ * authored by https://twitter.com/96rajabi
+ * MrSQl v 2.1
+ */
 public class MrSQl extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;
     private static final String DATABASE_NAME = "mehrGostar";
@@ -31,24 +35,22 @@ public class MrSQl extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONFIG_TABLE = "CREATE TABLE config(id INTEGER PRIMARY KEY , name TEXT,value TEXT)";
 
-        String CREATE_CUSTOMER_TABLE = "CREATE TABLE customer (id INTEGER PRIMARY KEY, customer_id INTEGER, contact_id INTEGER, edu TEXT," +
-                "fld TEXT, phone TEXT, phone_2 TEXT, job_1 TEXT, job_2 TEXT," +
-                "address_1 TEXT, address_2 TEXT, postal TEXT, description TEXT, locked TEXT, name TEXT, family TEXT," +
-                "code TEXT, father TEXT, gender TEXT, birthday TEXT, created_at TEXT, updated_at TEXT)";
+        String CREATE_COUNTRY_TABLE = "CREATE TABLE country (id INTEGER PRIMARY KEY, iCountryId INTEGER, vCountry TEXT," +
+                "vCountryCode TEXT, vCountryCodeISO_3 TEXT, vPhoneCode TEXT, eStatus TEXT)";
 
-        String CREATE_CONTACT_TABLE = "CREATE TABLE contact (id INTEGER PRIMARY KEY, contact_id INTEGER, name TEXT," +
-                "phone TEXT, credit TEXT, motive TEXT, created_at TEXT, updated_at TEXT)";
+        String CREATE_INTROS_TABLE = "CREATE TABLE intros (id INTEGER PRIMARY KEY, intro_id INTEGER, title TEXT," +
+                "content TEXT, picture TEXT, created_at TEXT, updated_at TEXT)";
 
         db.execSQL(CREATE_CONFIG_TABLE);
-        db.execSQL(CREATE_CUSTOMER_TABLE);
-        db.execSQL(CREATE_CONTACT_TABLE);
+        db.execSQL(CREATE_INTROS_TABLE);
+        db.execSQL(CREATE_COUNTRY_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL("DROP TABLE IF EXISTS intros");
         db.execSQL("DROP TABLE IF EXISTS config");
-        db.execSQL("DROP TABLE IF EXISTS customer");
-        db.execSQL("DROP TABLE IF EXISTS contact");
+        db.execSQL("DROP TABLE IF EXISTS country");
         onCreate(db);
     }
 
@@ -145,14 +147,14 @@ public class MrSQl extends SQLiteOpenHelper {
             insert(model);
     }
 
-    public void updateOrCreate(List<Object> models, String column) {
+    public <T> void updateOrCreate(List<T> models, String column) {
         for (int i = 0; i < models.size(); i++) {
             updateOrCreate(models.get(i), column);
         }
     }
 
-    public List<Object> all(Class model) {
-        List<Object> objects = new ArrayList<Object>();
+    public <T> List<T> all(Class<T> model) {
+        List<T> objects = new ArrayList<>();
         SQLiteDatabase db = this.getWritableDatabase();
         Field[] fields = model.getDeclaredFields();
         String query = "SELECT * FROM " + model.getSimpleName().toLowerCase() + ";";
@@ -175,7 +177,7 @@ public class MrSQl extends SQLiteOpenHelper {
         return objects;
     }
 
-    public Object get(Class model, String column, String value) {
+    public <T> T get(Class<T> model, String column, String value) {
         SQLiteDatabase db = this.getWritableDatabase();
         Field[] fields = model.getDeclaredFields();
         Cursor cursor = db.rawQuery("SELECT * FROM " + model.getSimpleName().toLowerCase() + " WHERE " + column + " = '" + value + "';", null);
